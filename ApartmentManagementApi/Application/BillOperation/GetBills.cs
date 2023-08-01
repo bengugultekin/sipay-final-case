@@ -4,21 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApartmentManagementApi.Application;
 
-public class GetUsers
+public class GetBills
 {
     private readonly IBaseDbContext _dbCcontext;
     private readonly IMapper _mapper;
 
-    public GetUsers(IBaseDbContext dbCcontext, IMapper mapper)
+    public GetBills(IBaseDbContext dbCcontext, IMapper mapper)
     {
         _dbCcontext = dbCcontext;
         _mapper = mapper;
     }
 
-    public List<GetUsersViewModel> Handle()
+    public List<GetBillsViewModel> Handle()
     {
-        var users = _dbCcontext.Users.Include(x => x.Bills).OrderBy(x => x.Id).ToList();
-        List<GetUsersViewModel> viewModel = _mapper.Map<List<GetUsersViewModel>>(users);
+        var bills = _dbCcontext.Bills
+            .Include(x => x.User)
+            .OrderBy(x => x.Id)
+            .ToList();
+        List<GetBillsViewModel> viewModel = _mapper.Map<List<GetBillsViewModel>>(bills);
+
         return viewModel;
     }
 }

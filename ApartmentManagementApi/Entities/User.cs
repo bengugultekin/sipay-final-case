@@ -10,4 +10,5 @@ public class User
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public string? PlateCode { get; set; }
+    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
 }

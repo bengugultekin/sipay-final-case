@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementApi.Models.User;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApartmentManagementApi.Application;
 
@@ -17,7 +18,8 @@ public class CreateUser
 
     public void Handle()
     {
-        var user = _dbCcontext.Users.SingleOrDefault(x => x.Email == model.Email);
+        var user = _dbCcontext.Users
+            .SingleOrDefault(x => x.Email == model.Email);
         
         if (user != null)
             throw new InvalidOperationException("Kullanıcı Zaten Mevcut");
@@ -27,4 +29,6 @@ public class CreateUser
         _dbCcontext.Users.Add(user);
         _dbCcontext.SaveChanges();
     }
+
+
 }

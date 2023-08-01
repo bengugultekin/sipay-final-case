@@ -31,7 +31,7 @@ public class UserController : ControllerBase
 
     // Get All Users From Query
     [HttpGet]
-    public IActionResult GetUsers()
+    public ActionResult GetUsers()
     {
         GetUsers users = new GetUsers(_dbContext, _mapper);
         var userList = users.Handle();
