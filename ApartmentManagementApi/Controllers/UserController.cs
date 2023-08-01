@@ -18,6 +18,8 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
+
+    // Create User
     [HttpPost]
     public IActionResult AddUser([FromBody] CreateUserViewModel model)
     {
@@ -25,5 +27,14 @@ public class UserController : ControllerBase
         user.model = model;
         user.Handle();
         return Ok();
+    }
+
+    // Get All Users From Query
+    [HttpGet]
+    public IActionResult GetUsers()
+    {
+        GetUsers users = new GetUsers(_dbContext, _mapper);
+        var userList = users.Handle();
+        return Ok(userList);
     }
 }
