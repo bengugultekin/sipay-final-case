@@ -17,7 +17,7 @@ public class GetUsers
 
     public List<GetUsersViewModel> Handle()
     {
-        var users = _dbCcontext.Users.Include(x => x.Bills).OrderBy(x => x.Id).ToList();
+        var users = _dbCcontext.Users.Include(x => x.Bills).Include(x => x.Cards).OrderBy(x => x.Id).ToList();
         List<GetUsersViewModel> viewModel = _mapper.Map<List<GetUsersViewModel>>(users);
         return viewModel;
     }

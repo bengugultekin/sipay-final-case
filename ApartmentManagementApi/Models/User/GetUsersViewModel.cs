@@ -9,5 +9,6 @@ public class GetUsersViewModel
     public string PhoneNumber { get; set; }
     public string? PlateCode { get; set; }
     public ICollection<BillViewModel>? Bills { get; set; } = new List<BillViewModel>();
+    public ICollection<CardViewModel> Cards { get; set; } = new List<CardViewModel>();
 
 }

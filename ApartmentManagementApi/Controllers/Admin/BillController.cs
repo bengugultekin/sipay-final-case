@@ -36,4 +36,27 @@ public class BillController : ControllerBase
         var billList = bills.Handle();
         return Ok(billList);
     }
+
+    // Get Paid Bills From Query
+    [HttpGet("paid-bills")]
+    public ActionResult GetPaidBills()
+    {
+        GetPaidBills bills = new GetPaidBills(_dbContext, _mapper);
+        var billList = bills.Handle();
+        return Ok(billList);
+    }
+
+    // Get Paid Bills From Query
+    [HttpGet("paid-bills-costs")]
+    public ActionResult GetPaidBillsCosts()
+    {
+        GetPaidBills bills = new GetPaidBills(_dbContext, _mapper);
+        var billList = bills.Handle();
+        decimal totalCost = 0;
+        foreach (var bill in billList)
+        {
+            totalCost = totalCost + bill.Cost;
+        }
+        return Ok(totalCost);
+    }
 }

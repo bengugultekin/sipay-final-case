@@ -1,11 +1,11 @@
 ﻿namespace ApartmentManagementApi.Models;
 
-public class CreateBillViewModel
+public class GetPaidBillsViewModel
 {
-    public int UserId { get; set; }
+    public string Customer { get; set; }
     public decimal Cost { get; set; }
     public DateTime BillCreatedDate { get; set; }
     public DateTime BillLastPayDate { get; set; }
     public DateTime? BillPaidDate { get; set; }
-    public bool IsPaid { get; set; } = false;
+    public bool IsPaid { get; set; } = true;
 }

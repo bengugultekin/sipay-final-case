@@ -13,6 +13,11 @@ public class BaseDbContext : DbContext, IBaseDbContext
 
     public DbSet<Bill> Bills { get; set; }
 
+    public DbSet<Apartment> Apartments { get; set; }
+    public DbSet<Card> Cards { get; set; }
+    public DbSet<Message> Messages { get; set; }
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
