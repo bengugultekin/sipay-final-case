@@ -6,19 +6,19 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class GetMessageDetail
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
     public int MessageId { get; set; }
 
     public GetMessageDetail(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public GetMessageDetailViewModel Handle()
     {
-        var message = _dbCcontext.Messages.Include(x => x.User).Where(msg => msg.Id == MessageId).SingleOrDefault();
+        var message = _dbContext.Messages.Include(x => x.User).Where(msg => msg.Id == MessageId).SingleOrDefault();
         if (message == null) 
         {
             throw new InvalidOperationException("Mesaj Bulunamadı");
@@ -29,7 +29,7 @@ public class GetMessageDetail
         if (message.IsReaded == false)
         {
             message.IsReaded = true;
-            _dbCcontext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         return viewModel;

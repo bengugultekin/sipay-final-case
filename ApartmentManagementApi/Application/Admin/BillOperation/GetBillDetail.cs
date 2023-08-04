@@ -6,19 +6,19 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class GetBillDetail
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
     public int BillId { get; set; }
 
     public GetBillDetail(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public GetBillDetailViewModel Handle()
     {
-        var bill = _dbCcontext.Bills
+        var bill = _dbContext.Bills
             .Include(x => x.User)
             .SingleOrDefault(x => x.Id == BillId);
         if (bill == null)

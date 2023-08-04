@@ -12,4 +12,5 @@ public class User
     public string? PlateCode { get; set; }
     public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
     public virtual ICollection<Card> Cards { get; set; } = new List<Card>();
+
 }

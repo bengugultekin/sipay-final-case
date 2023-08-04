@@ -5,18 +5,18 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class GetPaidDebts
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public GetPaidDebts(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public List<GetDebtsViewModel> Handle()
     {
-        var debts = _dbCcontext.Debts.Where(x => x.IsPaid == true).OrderBy(x => x.Id).ToList();
+        var debts = _dbContext.Debts.Where(x => x.IsPaid == true).OrderBy(x => x.Id).ToList();
         List<GetDebtsViewModel> viewModel = _mapper.Map<List<GetDebtsViewModel>>(debts);
         return viewModel;
     }

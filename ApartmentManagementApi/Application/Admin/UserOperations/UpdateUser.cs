@@ -6,17 +6,17 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class UpdateUser
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     public UpdateUserViewModel model { get; set; }
     public int UserId { get; set; }
     public UpdateUser(IBaseDbContext dbCcontext)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
     }
 
     public void Handle()
     {
-        var user = _dbCcontext.Users.SingleOrDefault(x => x.Id == UserId);
+        var user = _dbContext.Users.SingleOrDefault(x => x.Id == UserId);
 
         if (user == null)
         {
@@ -29,6 +29,6 @@ public class UpdateUser
         user.PhoneNumber = !string.IsNullOrEmpty(model.PhoneNumber) ? model.PhoneNumber : user.PhoneNumber;
         user.PlateCode = !string.IsNullOrEmpty(model.PlateCode) ? model.PlateCode : user.PlateCode;
 
-        _dbCcontext.SaveChanges();
+        _dbContext.SaveChanges();
     }
 }

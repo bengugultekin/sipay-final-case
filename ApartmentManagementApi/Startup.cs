@@ -27,7 +27,7 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sipay Api Collection", Version = "v1" });
         });
-
+        services.AddTransient<ILoggerService, ConsoleLogger>();
 
         // dbcontext
         var dbType = Configuration.GetConnectionString("DbType");
@@ -65,6 +65,8 @@ public class Startup
         app.UseRouting();
 
         app.UseAuthorization();
+
+        app.UseCustomExceptionMiddleware(); 
 
         app.UseEndpoints(endpoints =>
         {

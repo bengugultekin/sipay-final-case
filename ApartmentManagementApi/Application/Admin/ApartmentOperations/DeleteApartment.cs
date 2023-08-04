@@ -2,22 +2,22 @@
 
 public class DeleteApartment
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     public int ApartmentId { get; set; }
     public DeleteApartment(IBaseDbContext dbContext)
     {
-        _dbCcontext = dbContext;
+        _dbContext = dbContext;
     }
 
     public void Handle()
     {
-        var apartment = _dbCcontext.Apartments.SingleOrDefault(x => x.Id == ApartmentId);
+        var apartment = _dbContext.Apartments.SingleOrDefault(x => x.Id == ApartmentId);
         if (apartment == null)
         {
             throw new InvalidOperationException("Silinecek Daire Bulunamadı");
         }
         
-        _dbCcontext.Apartments.Remove(apartment);
-        _dbCcontext.SaveChanges();
+        _dbContext.Apartments.Remove(apartment);
+        _dbContext.SaveChanges();
     }
 }

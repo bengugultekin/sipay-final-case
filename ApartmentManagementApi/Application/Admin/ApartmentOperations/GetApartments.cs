@@ -6,18 +6,18 @@ namespace ApartmentManagementApi.Application;
 
 public class GetApartments
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public GetApartments(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public List<GetApartmentsViewModel> Handle()
     {
-        var apartments = _dbCcontext.Apartments
+        var apartments = _dbContext.Apartments
             .Include(x => x.User)
             .OrderBy(x => x.Id)
             .ToList();

@@ -6,18 +6,18 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class GetMessages
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public GetMessages(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public List<GetMessagesViewModel> Handle()
     {
-        var messages = _dbCcontext.Messages
+        var messages = _dbContext.Messages
             .Include(x => x.User)
             .OrderBy(x => x.Id)
             .ToList();

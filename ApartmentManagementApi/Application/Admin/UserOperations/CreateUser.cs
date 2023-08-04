@@ -5,19 +5,19 @@ namespace ApartmentManagementApi.Application;
 
 public class CreateUser
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
     public CreateUserViewModel model { get; set; }
 
     public CreateUser(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public void Handle()
     {
-        var user = _dbCcontext.Users
+        var user = _dbContext.Users
             .SingleOrDefault(x => x.Email == model.Email);
         
         if (user != null)
@@ -25,8 +25,8 @@ public class CreateUser
 
         user = _mapper.Map<ApartmentManagementApi.User>(model);
 
-        _dbCcontext.Users.Add(user);
-        _dbCcontext.SaveChanges();
+        _dbContext.Users.Add(user);
+        _dbContext.SaveChanges();
     }
 
 

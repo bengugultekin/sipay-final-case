@@ -5,18 +5,18 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class UpdateApartment
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     public UpdateApartmentViewModel model { get; set; }
     public int ApartmentId { get; set; }
     public int UserId { get; set; }
     public UpdateApartment(IBaseDbContext dbContext)
     {
-        _dbCcontext = dbContext;
+        _dbContext = dbContext;
     }
 
     public void Handle()
     {
-        var apartment = _dbCcontext.Apartments.SingleOrDefault(x => x.Id == ApartmentId);
+        var apartment = _dbContext.Apartments.SingleOrDefault(x => x.Id == ApartmentId);
 
         if (apartment == null)
         {
@@ -24,7 +24,7 @@ public class UpdateApartment
         }
         if(UserId != 0)
         {
-            var user = _dbCcontext.Users.SingleOrDefault(x => x.Id == UserId);
+            var user = _dbContext.Users.SingleOrDefault(x => x.Id == UserId);
             if (user == null)
             {
                 throw new InvalidOperationException("Güncellenecek Daire İçin Eklediğiniz Kullanıcı Bulunamadı");
@@ -38,6 +38,6 @@ public class UpdateApartment
         apartment.Number = model.Number != default ? model.Number : apartment.Number;
         apartment.IsEmpty = model.IsEmpty;
         
-        _dbCcontext.SaveChanges();
+        _dbContext.SaveChanges();
     }
 }

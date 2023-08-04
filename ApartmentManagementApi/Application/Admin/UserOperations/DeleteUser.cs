@@ -5,22 +5,22 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class DeleteUser
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     public int UserId { get; set; }
     public DeleteUser(IBaseDbContext dbCcontext)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
     }
 
     public void Handle()
     {
-        var user = _dbCcontext.Users.SingleOrDefault(x => x.Id == UserId);
+        var user = _dbContext.Users.SingleOrDefault(x => x.Id == UserId);
 
         if (user == null)
             throw new InvalidOperationException("Silinecek Kullanıcı Bulunamadı");
 
 
-        _dbCcontext.Users.Remove(user);
-        _dbCcontext.SaveChanges();
+        _dbContext.Users.Remove(user);
+        _dbContext.SaveChanges();
     }
 }

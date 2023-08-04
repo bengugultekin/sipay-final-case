@@ -5,17 +5,17 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class UpdateDebt
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     public UpdateDebtViewModel model { get; set; }
     public int DebtId { get; set; }
     public UpdateDebt(IBaseDbContext dbCcontext)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
     }
 
     public void Handle()
     {
-        var debt = _dbCcontext.Debts.SingleOrDefault(x => x.Id == DebtId);
+        var debt = _dbContext.Debts.SingleOrDefault(x => x.Id == DebtId);
 
         if (debt == null)
         {
@@ -28,6 +28,6 @@ public class UpdateDebt
         debt.IsPaid = model.IsPaid;
         debt.Cost = model.Cost != default ? model.Cost : debt.Cost;
 
-        _dbCcontext.SaveChanges();
+        _dbContext.SaveChanges();
     }
 }

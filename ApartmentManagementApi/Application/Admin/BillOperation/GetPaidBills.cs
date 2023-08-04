@@ -6,18 +6,18 @@ namespace ApartmentManagementApi.Application;
 
 public class GetPaidBills
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
 
     public GetPaidBills(IBaseDbContext dbCcontext, IMapper mapper)
     {
-        _dbCcontext = dbCcontext;
+        _dbContext = dbCcontext;
         _mapper = mapper;
     }
 
     public List<GetPaidBillsViewModel> Handle()
     {
-        var bills = _dbCcontext.Bills
+        var bills = _dbContext.Bills
             .Include(x => x.User)
             .Where(x => x.IsPaid == true)
             .OrderBy(x => x.Id)

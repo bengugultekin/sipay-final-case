@@ -5,21 +5,21 @@ namespace ApartmentManagementApi.Application.Admin;
 
 public class CreateMonthlyBills
 {
-    private readonly IBaseDbContext _dbCcontext;
+    private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
     public CreateMonthlyBillsViewModel model { get; set; }
 
     public CreateMonthlyBills(IBaseDbContext dbContext, IMapper mapper)
     {
         _mapper = mapper;
-        _dbCcontext = dbContext;
+        _dbContext = dbContext;
     }
 
     public void Handle()
     {
         foreach (var userId in model.UsersId)
         {
-            var user = _dbCcontext.Users.FirstOrDefault(x => x.Id == userId);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
             if (user == null)
             {
                 throw new InvalidOperationException($"Kullanıcı ID'si {userId} olan kullanıcı bulunamadı.");
@@ -34,9 +34,9 @@ public class CreateMonthlyBills
                 IsPaid = false
             };
 
-        _dbCcontext.Bills.Add(bill);
+        _dbContext.Bills.Add(bill);
         }
 
-        _dbCcontext.SaveChanges();
+        _dbContext.SaveChanges();
     }
 }
