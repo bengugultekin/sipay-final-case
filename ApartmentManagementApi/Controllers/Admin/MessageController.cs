@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,26 @@ public class MessageController : ControllerBase
     public ActionResult GetMessages()
     {
         GetMessages messages = new GetMessages(_dbContext, _mapper);
+        var messageList = messages.Handle();
+        return Ok(messageList);
+    }
+
+    // Get A Message From Query
+    [HttpGet("{id}")]
+    public IActionResult GetMessageById(int id)
+    {
+        GetMessageDetailViewModel result;
+        GetMessageDetail message = new GetMessageDetail(_dbContext, _mapper);
+        message.MessageId = id;
+        result = message.Handle();
+        return Ok(result);
+    }
+
+    //Get Unread Messages
+    [HttpGet("unread-messages")]
+    public ActionResult GetUnreadedMessages()
+    {
+        GetUnreadMessages messages = new GetUnreadMessages(_dbContext, _mapper);
         var messageList = messages.Handle();
         return Ok(messageList);
     }

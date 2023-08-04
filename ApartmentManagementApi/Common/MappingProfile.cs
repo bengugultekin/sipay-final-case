@@ -43,7 +43,9 @@ public class MappingProfile : Profile
         // Messages Mapping
         CreateMap<SentMessageViewModel, Message>();
         CreateMap<Message, GetMessagesViewModel>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.NameSurname))
+            .ForMember(dest => dest.IsReaded, opt => opt.MapFrom(src => src.IsReaded));
+        CreateMap<Message, GetMessageDetailViewModel>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.NameSurname));
-
     }
 }

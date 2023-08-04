@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementApi.Application;
+using ApartmentManagementApi.Application.Admin;
 using ApartmentManagementApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -35,5 +36,26 @@ public class ApartmentController : ControllerBase
         GetApartments apartments = new GetApartments(_dbContext, _mapper);
         var apartmentList = apartments.Handle();
         return Ok(apartmentList);
+    }
+
+    // Update Apartment
+    [HttpPut("{id}")]
+    public ActionResult UpdtApartment(int id, [FromBody] UpdateApartmentViewModel updateApartment)
+    {
+        UpdateApartment apartment = new UpdateApartment(_dbContext);
+        apartment.ApartmentId = id;
+        apartment.model = updateApartment;
+        apartment.Handle();
+        return Ok();
+    }
+
+    // Delete Apartment
+    [HttpDelete]
+    public ActionResult DeleteApartmentById(int id) 
+    {
+        DeleteApartment apartment = new DeleteApartment(_dbContext);
+        apartment.ApartmentId = id;
+        apartment.Handle();
+        return Ok();
     }
 }

@@ -11,5 +11,5 @@ public class Message
     public string Content { get; set; }
     public DateTime SentDate { get; set; }
     public virtual User User { get; set; }
-
+    public bool IsReaded { get; set; } = false;
 }

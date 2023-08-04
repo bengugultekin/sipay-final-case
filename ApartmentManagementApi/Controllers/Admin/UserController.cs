@@ -1,4 +1,6 @@
 ﻿using ApartmentManagementApi.Application;
+using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Models;
 using ApartmentManagementApi.Models.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -36,5 +38,26 @@ public class UserController : ControllerBase
         GetUsers users = new GetUsers(_dbContext, _mapper);
         var userList = users.Handle();
         return Ok(userList);
+    }
+
+    // Update User
+    [HttpPut("{id}")]
+    public ActionResult UpdtUser(int id, [FromBody] UpdateUserViewModel updateUser)
+    {
+        UpdateUser user = new UpdateUser(_dbContext);
+        user.UserId = id;
+        user.model = updateUser;
+        user.Handle();
+        return Ok();
+    }
+
+    // Delete User
+    [HttpDelete]
+    public ActionResult DeleteUserById(int id) 
+    {
+        DeleteUser user = new DeleteUser(_dbContext);
+        user.UserId = id;
+        user.Handle();
+        return Ok();
     }
 }
