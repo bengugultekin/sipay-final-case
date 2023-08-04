@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementApi.Application;
+using ApartmentManagementApi.Application.Admin;
 using ApartmentManagementApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,15 @@ public class BillController : ControllerBase
         bill.model = model;
         bill.Handle();
         return Ok();
+    }
+
+    [HttpPost("monthly-bill")]
+    public IActionResult AddMonthlyBill(CreateMonthlyBillsViewModel model)
+    {
+        CreateMonthlyBills bills = new CreateMonthlyBills(_dbContext, _mapper);
+        bills.model = model;
+        bills.Handle();
+        return Ok(); 
     }
 
     // Get All Bills From Query

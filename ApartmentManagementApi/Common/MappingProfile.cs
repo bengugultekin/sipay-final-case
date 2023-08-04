@@ -27,6 +27,10 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.User.NameSurname));
         CreateMap<Bill, GetPaidBillsViewModel>()
             .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.User.NameSurname));
+        CreateMap<CreateMonthlyBillsViewModel, Bill>();
+
+        // GetMyBills Operations
+        CreateMap<Bill, GetMyBillsViewModel>();
 
         // Apartments Mapping
         CreateMap<Apartment, GetApartmentsViewModel>()
