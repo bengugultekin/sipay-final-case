@@ -23,10 +23,11 @@ public class UpdateUser
             throw new InvalidOperationException("Güncellenecek Kullanıcı Bulunamadı");
         }
 
-        user.NameSurname = model.NameSurname != default ? model.NameSurname : user.NameSurname;
-        user.Email = model.Email != default ? model.Email : user.Email;
-        user.PhoneNumber = model.PhoneNumber != default ? model.PhoneNumber : user.PhoneNumber;
-        user.PlateCode = model.PlateCode != default ? model.PlateCode : user.PlateCode;
+
+        user.NameSurname = !string.IsNullOrEmpty(model.NameSurname) ? model.NameSurname : user.NameSurname;
+        user.Email = !string.IsNullOrEmpty(model.Email) ? model.Email : user.Email;
+        user.PhoneNumber = !string.IsNullOrEmpty(model.PhoneNumber) ? model.PhoneNumber : user.PhoneNumber;
+        user.PlateCode = !string.IsNullOrEmpty(model.PlateCode) ? model.PlateCode : user.PlateCode;
 
         _dbCcontext.SaveChanges();
     }

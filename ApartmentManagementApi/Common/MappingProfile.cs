@@ -28,6 +28,8 @@ public class MappingProfile : Profile
         CreateMap<Bill, GetPaidBillsViewModel>()
             .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.User.NameSurname));
         CreateMap<CreateMonthlyBillsViewModel, Bill>();
+        CreateMap<Bill, GetBillDetailViewModel>()
+            .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.User.NameSurname));
 
         // GetMyBills Operations
         CreateMap<Bill, GetMyBillsViewModel>();
@@ -47,5 +49,10 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.IsReaded, opt => opt.MapFrom(src => src.IsReaded));
         CreateMap<Message, GetMessageDetailViewModel>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.NameSurname));
+
+        // Depts Mapping
+        CreateMap<CreateDebtViewModel, Debt>();
+        CreateMap<Debt, GetDebtsViewModel>();
+        CreateMap<Debt, GetDebtDetailViewModel>();
     }
 }

@@ -9,7 +9,7 @@ public interface IBaseDbContext
     DbSet<Apartment> Apartments { get; set; }
     DbSet<Card> Cards { get; set; }
     DbSet<Message> Messages { get; set; }
-
+    DbSet<Debt> Debts { get; set; }
 
     int SaveChanges();
 }

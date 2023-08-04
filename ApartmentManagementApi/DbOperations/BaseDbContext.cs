@@ -10,12 +10,11 @@ public class BaseDbContext : DbContext, IBaseDbContext
     }
 
     public DbSet<User> Users { get; set; }
-
     public DbSet<Bill> Bills { get; set; }
-
     public DbSet<Apartment> Apartments { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Message> Messages { get; set; }
+    public DbSet<Debt> Debts { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

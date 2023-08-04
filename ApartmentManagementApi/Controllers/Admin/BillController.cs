@@ -35,7 +35,7 @@ public class BillController : ControllerBase
         CreateMonthlyBills bills = new CreateMonthlyBills(_dbContext, _mapper);
         bills.model = model;
         bills.Handle();
-        return Ok(); 
+        return Ok();
     }
 
     // Get All Bills From Query
@@ -47,6 +47,17 @@ public class BillController : ControllerBase
         return Ok(billList);
     }
 
+    // Get A Bill From Query
+    [HttpGet("{id}")]
+    public IActionResult GetBillById(int id)
+    {
+        GetBillDetailViewModel result;
+        GetBillDetail bill = new GetBillDetail(_dbContext, _mapper);
+        bill.BillId = id;
+        result = bill.Handle();
+        return Ok(result);
+    }
+
     // Get Paid Bills From Query
     [HttpGet("paid-bills")]
     public ActionResult GetPaidBills()
@@ -56,11 +67,33 @@ public class BillController : ControllerBase
         return Ok(billList);
     }
 
+    [HttpGet("unpaid-bills")]
+    public ActionResult GetUnpaidBillsAll()
+    {
+        GetUnpaidBills bills = new GetUnpaidBills(_dbContext, _mapper);
+        var billList = bills.Handle();
+        return Ok(billList);
+    }
+
     // Get Paid Bills From Query
     [HttpGet("paid-bills-costs")]
     public ActionResult GetPaidBillsCosts()
     {
         GetPaidBills bills = new GetPaidBills(_dbContext, _mapper);
+        var billList = bills.Handle();
+        decimal totalCost = 0;
+        foreach (var bill in billList)
+        {
+            totalCost = totalCost + bill.Cost;
+        }
+        return Ok(totalCost);
+    }
+
+    // Get Unaid Bills From Query
+    [HttpGet("unpaid-bills-costs")]
+    public ActionResult GetUnpaidBillsCosts()
+    {
+        GetUnpaidBills bills = new GetUnpaidBills(_dbContext, _mapper);
         var billList = bills.Handle();
         decimal totalCost = 0;
         foreach (var bill in billList)
