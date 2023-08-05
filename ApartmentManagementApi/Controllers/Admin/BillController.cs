@@ -102,4 +102,25 @@ public class BillController : ControllerBase
         }
         return Ok(totalCost);
     }
+
+    // Update Bill
+    [HttpPut("{id}")]
+    public ActionResult UpdtBill(int id, [FromBody] UpdateBillViewModel updateBill)
+    {
+        UpdateBill bill = new UpdateBill(_dbContext);
+        bill.BillId = id;
+        bill.model = updateBill;
+        bill.Handle();
+        return Ok();
+    }
+
+    // Delete Bill
+    [HttpDelete("{id}")]
+    public ActionResult DeleteBillById(int id)
+    {
+        DeleteBill bill = new DeleteBill(_dbContext);
+        bill.BillId = id;
+        bill.Handle();
+        return Ok();
+    }
 }

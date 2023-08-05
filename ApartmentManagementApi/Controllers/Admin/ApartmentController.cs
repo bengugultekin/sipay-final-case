@@ -19,7 +19,7 @@ public class ApartmentController : ControllerBase
         _mapper = mapper;
     }
 
-    // Create Bill
+    // Create Apartment
     [HttpPost]
     public IActionResult AddApartment(CreateApartmentViewModel model)
     {
@@ -29,13 +29,23 @@ public class ApartmentController : ControllerBase
         return Ok();
     }
 
-    // Get All Bills From Query
+    // Get All Apartment From Query
     [HttpGet]
     public ActionResult GetApartments()
     {
         GetApartments apartments = new GetApartments(_dbContext, _mapper);
         var apartmentList = apartments.Handle();
         return Ok(apartmentList);
+    }
+
+    // Get An Apartment by Id From Query
+    [HttpGet("{id}")]
+    public ActionResult GetApartmentById(int id)
+    {
+        GetApartmentDetail apartment = new GetApartmentDetail(_dbContext, _mapper);
+        apartment.ApartmentId = id;
+        var result = apartment.Handle();
+        return Ok(result);
     }
 
     // Update Apartment
@@ -50,7 +60,7 @@ public class ApartmentController : ControllerBase
     }
 
     // Delete Apartment
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public ActionResult DeleteApartmentById(int id) 
     {
         DeleteApartment apartment = new DeleteApartment(_dbContext);

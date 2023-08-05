@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementApi.Controllers;
 
+
 [ApiController]
 [Route("[controller]s")]
-public class GetMyBillsController : ControllerBase
+public class BillController : ControllerBase
 {
-
     private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
-    public GetMyBillsController(IBaseDbContext dbContext, IMapper mapper)
+    public BillController(IBaseDbContext dbContext, IMapper mapper)
     {
         _dbContext = dbContext;
         _mapper = mapper;
@@ -29,4 +29,15 @@ public class GetMyBillsController : ControllerBase
         var billList = bills.Handle();
         return Ok(billList);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult PayingBill(int id, [FromBody] PayBillViewModel model)
+    {
+        PayBill paying = new PayBill(_dbContext);
+        paying.BillId = id;
+        paying.model = model;
+        paying.Handle();
+        return Ok();
+    }
+
 }

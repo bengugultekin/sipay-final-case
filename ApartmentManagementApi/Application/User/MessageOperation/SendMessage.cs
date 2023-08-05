@@ -7,8 +7,8 @@ public class SendMessage
 {
     private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
-
-public SentMessageViewModel model { get; set; }
+    public int UserId { get; set; }
+    public SentMessageViewModel model { get; set; }
 
     public SendMessage(IBaseDbContext dbContext, IMapper mapper)
     {
@@ -23,8 +23,8 @@ public SentMessageViewModel model { get; set; }
         {
             throw new InvalidOperationException("Bu Mesajı Daha Önce Gönderdiniz");
         }
-
         message = _mapper.Map<Message>(model);
+        message.UserId = UserId;
 
         _dbContext.Messages.Add(message);
         _dbContext.SaveChanges();

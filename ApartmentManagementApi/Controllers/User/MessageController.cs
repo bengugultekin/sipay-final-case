@@ -19,11 +19,12 @@ public class MessageController : ControllerBase
     }
 
 
-    // Send Message
-    [HttpPost]
-    public IActionResult SendingMessage([FromBody] SentMessageViewModel model)
+    // Send Message - User Id Query'den gelmeli
+    [HttpPost("{id}")]
+    public IActionResult SendingMessage(int id, [FromBody] SentMessageViewModel model)
     {
         SendMessage message = new SendMessage(_dbContext, _mapper);
+        message.UserId = id;
         message.model = model;
         message.Handle();
         return Ok();

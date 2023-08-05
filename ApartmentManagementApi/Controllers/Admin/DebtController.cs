@@ -119,4 +119,14 @@ public class DebtController : ControllerBase
         }
         return Ok(totalCost);
     }
+
+    // Delete Debt
+    [HttpDelete("{id}")]
+    public ActionResult DeleteDebtById(int id)
+    {
+        DeleteDebt debt = new DeleteDebt(_dbContext);
+        debt.DebtId = id;
+        debt.Handle();
+        return Ok();
+    }
 }

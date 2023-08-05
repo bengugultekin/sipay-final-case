@@ -38,9 +38,15 @@ public class MappingProfile : Profile
         CreateMap<Apartment, GetApartmentsViewModel>()
             .ForMember(dest => dest.HomeOwner, opt => opt.MapFrom(src => src.User.NameSurname));
         CreateMap<CreateApartmentViewModel, Apartment>();
+        CreateMap<Apartment, GetApartmentDetailViewModel>()
+            .ForMember(dest => dest.HomeOwner, opt => opt.MapFrom(src => src.User.NameSurname));
+
+        // Get My Apartments
+        CreateMap<Apartment, GetMyApartmentsViewModel>();
 
         // Cards Mapping
         CreateMap<CreateCardViewModel, Card>();
+        CreateMap<Card, GetCardsViewModel>();
 
         // Messages Mapping
         CreateMap<SentMessageViewModel, Message>();

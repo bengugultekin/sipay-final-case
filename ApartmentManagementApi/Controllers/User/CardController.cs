@@ -1,4 +1,6 @@
 ﻿using ApartmentManagementApi.Application;
+using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Application.User;
 using ApartmentManagementApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +20,33 @@ public class CardController : ControllerBase
         _mapper = mapper;
     }
 
+    // Get All Cards - UserId Query den Gelmeli
+    [HttpGet("{id}")]
+    public ActionResult GetCardsAll(int id)
+    {
+        GetCards cards = new GetCards(_dbContext, _mapper);
+        cards.UserId = id;
+        var cardList = cards.Handle();
+        return Ok(cardList);
+    }
 
-    // Create User
-    [HttpPost]
-    public IActionResult AddCard([FromBody] CreateCardViewModel model)
+    // Create Card - UserId queryden gelmeli
+    [HttpPost("{id}")]
+    public IActionResult AddCard(int id,[FromBody] CreateCardViewModel model)
     {
         CreateCard card = new CreateCard(_dbContext, _mapper);
         card.model = model;
+        card.UsertId = id;
+        card.Handle();
+        return Ok();
+    }
+    // Update Card
+    [HttpPut("{id}")]
+    public ActionResult UpdtCard(int id, [FromBody] UpdateCardViewModel updateCard)
+    {
+        UpdateCard card = new UpdateCard(_dbContext);
+        card.CardId = id;
+        card.model = updateCard;
         card.Handle();
         return Ok();
     }

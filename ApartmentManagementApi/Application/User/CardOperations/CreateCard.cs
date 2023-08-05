@@ -7,7 +7,7 @@ public class CreateCard
 {
     private readonly IBaseDbContext _dbContext;
     private readonly IMapper _mapper;
-
+    public int UsertId { get; set; }
     public CreateCardViewModel model { get; set; }
 
     public CreateCard(IBaseDbContext dbCcontext, IMapper mapper)
@@ -23,9 +23,8 @@ public class CreateCard
         {
             throw new InvalidOperationException("Kaydetmeye Çalıştığınız Kart Zaten Kayıtlı");
         }
-
         card = _mapper.Map<Card>(model);
-        
+        card.UserId = UsertId;
         _dbContext.Cards.Add(card);
         _dbContext.SaveChanges();
     }
