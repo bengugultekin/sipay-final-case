@@ -57,57 +57,65 @@ The API provides the following endpoints:
 
 - **POST /admin/apartments:** Create a new apartment.
 - **GET /admin/apartments:** Get all apartments.
+- **GET /admin/apartments/{id}:** Get an apartment by ID.
 - **PUT /admin/apartments/{id}:** Update an existing apartment.
 - **DELETE /admin/apartments:** Delete an apartment by ID.
+- **GET apartments/{id}:** Get all the apartments belonging to the user.
 
 ### BillController
 
-- **POST /admin/bills:** Create a new bill.
-- **POST /admin/bills/monthly-bill:** Create monthly bills.
-- **GET /admin/bills:** Get all bills.
-- **GET /admin/bills/{id}:** Get a bill by ID.
-- **GET /admin/bills/paid-bills:** Get all paid bills.
-- **GET /admin/bills/unpaid-bills:** Get all unpaid bills.
-- **GET /admin/bills/paid-bills-costs:** Get the total cost of paid bills.
-- **GET /admin/bills/unpaid-bills-costs:** Get the total cost of unpaid bills.
+- **POST - /admin/bills:** Create Bill
+- **POST - /admin/bills/monthly-bill:** Create Monthly Bill
+- **GET - /admin/bills:** Get All Bills
+- **GET - /admin/bills/{id}:** Get A Bill by Id
+- **GET - /admin/bills/paid-bills:** Get Paid Bills
+- **GET - /admin/bills/unpaid-bills:** Get Unpaid Bills
+- **GET - /admin/bills/paid-bills-costs:** Get Total Cost of Paid Bills
+- **GET - /admin/bills/unpaid-bills-costs:** Get Total Cost of Unpaid Bills
+- **PUT - /admin/bills/{id}:** Update Bill
+- **DELETE - /admin/bills/{id}:** Delete Bill
 
 ### DebtController
 
-- **GET /admin/debts:** Get all debts.
-- **GET /admin/debts/unpaid-debts:** Get all unpaid debts.
-- **GET /admin/debts/paid-debts:** Get all paid debts.
-- **GET /admin/debts/{id}:** Get a debt by ID.
-- **POST /admin/debts:** Create a new debt.
-- **PUT /admin/debts/{id}:** Update an existing debt.
-- **GET /admin/debts/paid-debts-total-costs:** Get the total cost of paid debts.
-- **GET /admin/debts/unpaid-debts-total-costs:** Get the total cost of unpaid debts.
-- **GET /admin/debts/debts-total-costs:** Get the total cost of all debts.
+- **GET - /admin/debts:** Get All Debts
+- **GET - /admin/debts/unpaid-debts:** Get All Unpaid Debts
+- **GET - /admin/debts/paid-debts:** Get All Paid Debts
+- **GET - /admin/debts/{id}:** Get A Debt by Id
+- **POST - /admin/debts:** Create Debt
+- **PUT - /admin/debts/{id}:** Update Debt
+- **GET - /admin/debts/paid-debts-total-costs:** Get Total Cost of Paid Debts
+- **GET - /admin/debts/unpaid-debts-total-costs:** Get Total Cost of Unpaid Debts
+- **GET - /admin/debts/debts-total-costs:** Get Total Cost of All Debts
+- **DELETE - /admin/debts/{id}:** Delete Debt
 
 ### MessageController
 
-- **GET /admin/messages:** Get all messages.
-- **GET /admin/messages/{id}:** Get a message by ID.
-- **GET /admin/messages/unread-messages:** Get all unread messages.
-- **POST /admin/messages:** Send a new message.
+- **GET - /admin/messages:** Get All Messages
+- **GET - /admin/messages/{id}:** Get A Message by Id
+- **GET - /admin/messages/unread-messages:** Get Unread Messages
+- **POST - /admin/messages/{id}:** Sending Message
 
 ### UserController
 
-- **POST /admin/users:** Create a new user.
-- **GET /admin/users:** Get all users.
-- **PUT /admin/users/{id}:** Update an existing user.
-- **DELETE /admin/users:** Delete a user by ID.
+- **POST - /admin/users:** Create User
+- **GET - /admin/users:** Get All Users
+- **PUT - /admin/users/{id}:** Update User
+- **DELETE - /admin/users:** Delete User
 
-### CardController
+### ApartmentController (User-specific):
 
-- **POST /cards:** Create a new card.
+- **GET - /apartments/{id}:** Get All Apartments for a User
 
-### GetMyBillsController
+### BillController (User-specific):
 
-- **GET /getmybills/{id}:** Get all bills for a specific user.
+- **GET - /bills/{id}:** Get All Bills for a User
+- **PUT - /bills/{id}:** Pay a Bill
 
-### PayBillController
+### CardController (User-specific):
 
-- **PUT /paybill/{id}:** Pay a bill.
+- **GET - /cards/{id}:** Get All Cards for a User
+- **POST - /cards/{id}:** Add a Card for a User
+- **PUT - /cards/{id}:** Update a Card
 
 ### Authentication
 
