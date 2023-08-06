@@ -1,7 +1,9 @@
 ﻿using ApartmentManagementApi.Application;
 using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Application.Admin.DebtOperations;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +57,10 @@ public class DebtController : ControllerBase
         GetDebtDetailViewModel result;
         GetDebtDetail debt = new GetDebtDetail(_dbContext, _mapper);
         debt.DebtId = id;
+
+        GetDebtDetailValidator validator = new GetDebtDetailValidator();
+        validator.ValidateAndThrow(debt);
+
         result = debt.Handle();
         return Ok(result);
     }
@@ -65,6 +71,10 @@ public class DebtController : ControllerBase
     {
         CreateDebt debt = new CreateDebt(_dbContext, _mapper);
         debt.model = model;
+
+        CreateDebtValidator validator = new CreateDebtValidator();
+        validator.ValidateAndThrow(debt);
+
         debt.Handle();
         return Ok();
     }
@@ -76,6 +86,10 @@ public class DebtController : ControllerBase
         UpdateDebt debt = new UpdateDebt(_dbContext);
         debt.DebtId = id;
         debt.model = updateDebt;
+
+        UpdateDebtValidator validator = new UpdateDebtValidator();
+        validator.ValidateAndThrow(debt);
+
         debt.Handle();
         return Ok();
     }
@@ -128,6 +142,10 @@ public class DebtController : ControllerBase
     {
         DeleteDebt debt = new DeleteDebt(_dbContext);
         debt.DebtId = id;
+
+        DeleteDebtValidator validator = new DeleteDebtValidator();
+        validator.Validate(debt);
+
         debt.Handle();
         return Ok();
     }
