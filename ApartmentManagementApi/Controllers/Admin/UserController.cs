@@ -1,8 +1,10 @@
 ﻿using ApartmentManagementApi.Application;
 using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Application.Admin.UserOperations;
 using ApartmentManagementApi.Models;
 using ApartmentManagementApi.Models.User;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +31,10 @@ public class UserController : ControllerBase
     {
         CreateUser user = new CreateUser(_dbContext, _mapper);
         user.model = model;
+
+        CreateUserValidator validator = new CreateUserValidator();
+        validator.ValidateAndThrow(user);
+
         user.Handle();
         return Ok();
     }
@@ -49,6 +55,10 @@ public class UserController : ControllerBase
         UpdateUser user = new UpdateUser(_dbContext);
         user.UserId = id;
         user.model = updateUser;
+
+        UpdateUserValidator validator = new UpdateUserValidator();
+        validator.ValidateAndThrow(user);
+
         user.Handle();
         return Ok();
     }
@@ -59,6 +69,10 @@ public class UserController : ControllerBase
     {
         DeleteUser user = new DeleteUser(_dbContext);
         user.UserId = id;
+
+        DeleteUserValidator validator = new DeleteUserValidator();
+        validator.ValidateAndThrow(user);
+
         user.Handle();
         return Ok();
     }
