@@ -15,6 +15,7 @@ public class BaseDbContext : DbContext, IBaseDbContext
     public DbSet<Card> Cards { get; set; }
     public DbSet<Message> Messages { get; set; }
     public DbSet<Debt> Debts { get; set; }
+    public DbSet<Admin> Admins { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

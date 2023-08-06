@@ -10,6 +10,7 @@ public interface IBaseDbContext
     DbSet<Card> Cards { get; set; }
     DbSet<Message> Messages { get; set; }
     DbSet<Debt> Debts { get; set; }
+    DbSet<Admin> Admins { get; set; }
 
     int SaveChanges();
 }

@@ -2,10 +2,12 @@
 using ApartmentManagementApi.Application.Admin;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("admin/[controller]s")]
 public class DebtController : ControllerBase

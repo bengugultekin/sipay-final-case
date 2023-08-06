@@ -60,5 +60,8 @@ public class MappingProfile : Profile
         CreateMap<CreateDebtViewModel, Debt>();
         CreateMap<Debt, GetDebtsViewModel>();
         CreateMap<Debt, GetDebtDetailViewModel>();
+
+        // Admin Mapping
+        CreateMap<CreateAdminViewModel, Admin>();
     }
 }

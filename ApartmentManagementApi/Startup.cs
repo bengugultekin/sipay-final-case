@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace ApartmentManagementApi;
@@ -18,7 +21,27 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(o =>
+        {
+            o.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = Configuration["Jwt:Issuer"],
+                ValidAudience = Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero
+            };
+        });
+        services.AddAuthorization();
+        
         services.AddControllers().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
@@ -27,7 +50,6 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sipay Api Collection", Version = "v1" });
         });
-        services.AddTransient<ILoggerService, ConsoleLogger>();
 
         // dbcontext
         var dbType = Configuration.GetConnectionString("DbType");
@@ -40,7 +62,7 @@ public class Startup
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         }
-
+        services.AddSingleton<ILoggerService, ConsoleLogger>();
 
         var config = new MapperConfiguration(cfg =>
         {
@@ -49,7 +71,6 @@ public class Startup
         services.AddSingleton(config.CreateMapper());
 
     }
-
 
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +83,11 @@ public class Startup
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sipay v1"));
         }
 
+        
+
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseCustomExceptionMiddleware(); 
@@ -73,4 +97,6 @@ public class Startup
             endpoints.MapControllers();
         });
     }
+
+    
 }

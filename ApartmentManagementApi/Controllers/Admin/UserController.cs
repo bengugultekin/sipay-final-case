@@ -3,10 +3,12 @@ using ApartmentManagementApi.Application.Admin;
 using ApartmentManagementApi.Models;
 using ApartmentManagementApi.Models.User;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementApi;
 
+[Authorize]
 [ApiController]
 [Route("admin/[controller]s")]
 public class UserController : ControllerBase
