@@ -1,11 +1,12 @@
-﻿using ApartmentManagementApi.Application;
-using ApartmentManagementApi.Models;
+﻿using ApartmentManagementApi.Models;
 using ApartmentManagementApi.Services;
-using ApartmentManagementApi.Application.Admin;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 namespace ApartmentManagementApi.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("admin/[controller]s")]
 public class MailController : ControllerBase
