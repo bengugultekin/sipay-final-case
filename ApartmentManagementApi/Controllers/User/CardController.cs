@@ -1,8 +1,10 @@
 ﻿using ApartmentManagementApi.Application;
 using ApartmentManagementApi.Application.Admin;
 using ApartmentManagementApi.Application.User;
+using ApartmentManagementApi.Application.User.CardOperations;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementApi;
@@ -37,6 +39,10 @@ public class CardController : ControllerBase
         CreateCard card = new CreateCard(_dbContext, _mapper);
         card.model = model;
         card.UsertId = id;
+
+        CreateCardValidator validator = new CreateCardValidator();
+        validator.ValidateAndThrow(card);
+
         card.Handle();
         return Ok();
     }
@@ -47,6 +53,23 @@ public class CardController : ControllerBase
         UpdateCard card = new UpdateCard(_dbContext);
         card.CardId = id;
         card.model = updateCard;
+
+        UpdateCardValidator validator = new UpdateCardValidator();
+        validator.ValidateAndThrow(card);
+
+        card.Handle();
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteCard(int id) 
+    {
+        DeleteCard card = new DeleteCard(_dbContext);
+        card.CardId=id;
+
+        DeleteCardValidator validator = new DeleteCardValidator();
+        validator.ValidateAndThrow(card);
+
         card.Handle();
         return Ok();
     }
