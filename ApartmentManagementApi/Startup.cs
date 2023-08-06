@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using ApartmentManagementApi.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -63,7 +64,7 @@ public class Startup
 
         }
         services.AddSingleton<ILoggerService, ConsoleLogger>();
-
+        services.AddScoped<IEmailService, EmailService>();
         var config = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile(new MappingProfile());
