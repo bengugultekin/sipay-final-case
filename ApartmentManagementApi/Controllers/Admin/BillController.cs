@@ -1,7 +1,9 @@
 ﻿using ApartmentManagementApi.Application;
 using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Application.Admin.BillOperation;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +29,10 @@ public class BillController : ControllerBase
     {
         CreateBill bill = new CreateBill(_dbContext, _mapper);
         bill.model = model;
+
+        CreateBillValidator validator = new CreateBillValidator();
+        validator.ValidateAndThrow(bill);
+
         bill.Handle();
         return Ok();
     }
@@ -56,6 +62,10 @@ public class BillController : ControllerBase
         GetBillDetailViewModel result;
         GetBillDetail bill = new GetBillDetail(_dbContext, _mapper);
         bill.BillId = id;
+
+        GetBillDetailValidator validator = new GetBillDetailValidator();
+        validator.ValidateAndThrow(bill);
+
         result = bill.Handle();
         return Ok(result);
     }
@@ -112,6 +122,10 @@ public class BillController : ControllerBase
         UpdateBill bill = new UpdateBill(_dbContext);
         bill.BillId = id;
         bill.model = updateBill;
+
+        UpdateBillValidator validator = new UpdateBillValidator();
+        validator.ValidateAndThrow(bill);
+
         bill.Handle();
         return Ok();
     }
@@ -122,6 +136,10 @@ public class BillController : ControllerBase
     {
         DeleteBill bill = new DeleteBill(_dbContext);
         bill.BillId = id;
+
+        DeleteBillValidator validator = new DeleteBillValidator();
+        validator.ValidateAndThrow(bill);
+
         bill.Handle();
         return Ok();
     }
