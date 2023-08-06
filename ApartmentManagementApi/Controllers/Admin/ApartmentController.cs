@@ -1,7 +1,9 @@
 ﻿using ApartmentManagementApi.Application;
 using ApartmentManagementApi.Application.Admin;
+using ApartmentManagementApi.Application.Admin.ApartmentOperations;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +29,10 @@ public class ApartmentController : ControllerBase
     {
         CreateApartment apartment = new CreateApartment(_dbContext, _mapper);
         apartment.model = model;
+
+        CreateApartmentValidator validator = new CreateApartmentValidator();
+        validator.ValidateAndThrow(apartment);
+
         apartment.Handle();
         return Ok();
     }
@@ -46,6 +52,10 @@ public class ApartmentController : ControllerBase
     {
         GetApartmentDetail apartment = new GetApartmentDetail(_dbContext, _mapper);
         apartment.ApartmentId = id;
+
+        GetApartmentDetailValidator validator = new GetApartmentDetailValidator();
+        validator.ValidateAndThrow(apartment);
+
         var result = apartment.Handle();
         return Ok(result);
     }
@@ -57,6 +67,10 @@ public class ApartmentController : ControllerBase
         UpdateApartment apartment = new UpdateApartment(_dbContext);
         apartment.ApartmentId = id;
         apartment.model = updateApartment;
+
+        UpdateApartmentValidator validator = new UpdateApartmentValidator();
+        validator.ValidateAndThrow(apartment);
+
         apartment.Handle();
         return Ok();
     }
@@ -67,6 +81,10 @@ public class ApartmentController : ControllerBase
     {
         DeleteApartment apartment = new DeleteApartment(_dbContext);
         apartment.ApartmentId = id;
+
+        DeleteApartmentValidator validator = new DeleteApartmentValidator();
+        validator.ValidateAndThrow(apartment);
+
         apartment.Handle();
         return Ok();
     }
