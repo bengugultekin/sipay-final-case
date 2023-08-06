@@ -9,8 +9,6 @@ public class UpdateBillValidator : AbstractValidator<UpdateBill>
         RuleFor(x => x.BillId).GreaterThan(0);
         RuleFor(x => x.model.UserId).GreaterThan(0);
         RuleFor(x => x.model.Cost).GreaterThan(0);
-        RuleFor(x => x.model.BillCreatedDate).Equal(DateTime.Now);
-        RuleFor(x => x.model.BillLastPayDate).GreaterThan(DateTime.Now);
 
     }
 }
