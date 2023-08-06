@@ -2,6 +2,7 @@
 using ApartmentManagementApi.Application.User;
 using ApartmentManagementApi.Models;
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementApi.Controllers;
@@ -36,6 +37,10 @@ public class BillController : ControllerBase
         PayBill paying = new PayBill(_dbContext);
         paying.BillId = id;
         paying.model = model;
+
+        PayBillValidator validator = new PayBillValidator();
+        validator.ValidateAndThrow(paying);
+
         paying.Handle();
         return Ok();
     }
