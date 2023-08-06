@@ -38,4 +38,13 @@ public class AdminController : ControllerBase
         var result = token.Handle();
         return result;
     }
+
+    [HttpGet("refreshToken")]
+    public ActionResult<Token> GetRefreshToken([FromQuery] string token)
+    {
+        RefreshToken tkn = new RefreshToken(_dbContext, _configuration);
+        tkn.refreshToken = token;
+        var result = tkn.Handle();
+        return result;
+    }
 }
